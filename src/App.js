@@ -8,20 +8,15 @@ import Header from './Components/Header/Header';
 import SearchResults from './Components/SearchResults/SearchResults';
 import Filter from './Components/Filter/Filter';
 
-const app_id = process.env.APP_ID;
-const api_key = process.env.API_KEY;
-const query = 'eggs lettuce tomato'.replaceAll(' ', '%20');
-const url = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${app_id}&app_key=${api_key}`;
+const app_id = process.env.REACT_APP_EDAMAN_APP_ID;
+const api_key = process.env.REACT_APP_EDAMAN_API_KEY;
 
-console.log(url);
+console.log(api_key, app_id);
 
 const initialForm = {
-  ingredients: [],
+  ingredients: '',
   diet: [],
   health: [],
-  cuisineType: [],
-  mealType: [],
-  dishType: [],
   calories: '',
   time: '',
 };
@@ -32,29 +27,81 @@ function App() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log('form submitted');
+
+    let url = `https://api.edamam.com/api/recipes/v2?type=public&q=${formState.ingredients}&app_id=${app_id}&app_key=${api_key}`;
+
+    Object.keys(formState).map(key => {
+      if (key === 'diet' || key === 'health') {
+        if (formState[key].length) {
+          formState[key].forEach(item => {
+            const newUrl = url + `&${key}=${item}`;
+            url = newUrl;
+          });
+        }
+      } else if (key === 'calories' || key === 'time') {
+        return null;
+      }
+    });
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setRecipes(data);
+      })
+      .catch(err => console.error(err));
   };
 
-  const handleCheckBoxChange = ({ target }) => {
+  const handleChange = ({ target }) => {
+    switch (target.name) {
+      case 'ingredients':
+        setFormState(state => ({
+          ...state,
+          ingredients: target.value
+            .trim()
+            //remove special characters
+            .replaceAll(/[&/\\#+()$^~!%.'`;=":_@*?<>{}]/g, '')
+            //replace , with space
+            .replaceAll(',', ' ')
+            //replace multiple spaces in a row to just 1 space
+            .replaceAll(/ {1,}/g, ' ')
+            //replace space to match query
+            .replaceAll(' ', '%20'),
+        }));
+        break;
+
+      case 'diet':
+        updateDietAndHealth(target);
+        break;
+
+      case 'health':
+        updateDietAndHealth(target);
+        break;
+
+      default:
+        console.log('something went wrong', target);
+    }
+  };
+
+  function updateDietAndHealth(target) {
     if (target.checked) {
       setFormState(state => ({
         ...state,
-        diet: [...state.diet, target.value],
+        [target.name]: [...state[target.name], target.value],
       }));
     } else {
-      const newDiet = formState.diet;
-      const index = formState.diet.indexOf(target.value);
+      const newArray = formState[target.name];
+      const index = formState[target.name].indexOf(target.value);
 
       if (index > -1) {
-        newDiet.splice(index, 1);
+        newArray.splice(index, 1);
       }
 
       setFormState(state => ({
         ...state,
-        diet: newDiet,
+        [target.name]: newArray,
       }));
     }
-  };
+  }
 
   // useEffect(() => {
   //   fetch(url)
@@ -68,7 +115,7 @@ function App() {
       {JSON.stringify(formState, null, 2)}
       <Header />
       <DataContext.Provider
-        value={{ recipes, setRecipes, handleSubmit, handleCheckBoxChange }}
+        value={{ recipes, setRecipes, formState, handleSubmit, handleChange }}
       >
         <Filter />
         <SearchResults />
