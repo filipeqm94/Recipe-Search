@@ -41,6 +41,7 @@ function App() {
       } else if (key === 'calories' || key === 'time') {
         return null;
       }
+      return null;
     });
 
     fetch(url)
