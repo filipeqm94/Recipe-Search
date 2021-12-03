@@ -148,6 +148,48 @@ export default function Filter() {
           </div>
         </div>
       </div>
+
+      <div>
+        <h3>Calories</h3>
+        <div>
+          <label htmlFor='calMin'>Min.</label>
+          <input
+            type='number'
+            id='calMin'
+            name='calories'
+            onChange={handleChange}
+          />
+          <label htmlFor='calMax'>Max.</label>
+          <input
+            type='number'
+            id='calMax'
+            name='calories'
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div>
+        <h3>Prep Time:</h3>
+        <div>
+          <label htmlFor='timeMin'>Min.</label>
+          <input
+            type='number'
+            id='timeMin'
+            name='time'
+            onChange={handleChange}
+          />
+
+          <label htmlFor='timeMax'>Max.</label>
+          <input
+            type='number'
+            id='timeMax'
+            name='time'
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
       <button type='submit'>Search</button>
     </form>
   );

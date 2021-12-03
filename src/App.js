@@ -17,8 +17,14 @@ const initialForm = {
   ingredients: '',
   diet: [],
   health: [],
-  calories: '',
-  time: '',
+  calories: {
+    calMin: 0,
+    calMax: 0,
+  },
+  time: {
+    timeMin: 0,
+    timeMax: 0,
+  },
 };
 
 function App() {
@@ -71,11 +77,19 @@ function App() {
         break;
 
       case 'diet':
-        updateDietAndHealth(target);
+        updateCheckbox(target);
         break;
 
       case 'health':
-        updateDietAndHealth(target);
+        updateCheckbox(target);
+        break;
+
+      case 'time':
+        updateMinMax(target);
+        break;
+
+      case 'calories':
+        updateMinMax(target);
         break;
 
       default:
@@ -83,7 +97,7 @@ function App() {
     }
   };
 
-  function updateDietAndHealth(target) {
+  function updateCheckbox(target) {
     if (target.checked) {
       setFormState(state => ({
         ...state,
@@ -104,19 +118,29 @@ function App() {
     }
   }
 
-  // useEffect(() => {
-  //   fetch(url)
-  //     .then(res => res.json())
-  //     .then(data => setState(data))
-  //     .catch(err => console.error(err));
-  // }, []);
+  function updateMinMax(target) {
+    setFormState(state => ({
+      ...state,
+      [target.name]: {
+        ...state[target.name],
+        [target.id]: target.value,
+      },
+    }));
+  }
 
   return (
     <div>
       {JSON.stringify(formState, null, 2)}
       <Header />
       <DataContext.Provider
-        value={{ recipes, setRecipes, formState, handleSubmit, handleChange }}
+        value={{
+          recipes,
+          setRecipes,
+          formState,
+          setFormState,
+          handleSubmit,
+          handleChange,
+        }}
       >
         <Filter />
         <SearchResults />
