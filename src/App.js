@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataContext } from './DataContext';
-// import { Route } from 'react-router';
-
-import { response } from './response';
+import { Route } from 'react-router';
 
 import Header from './Components/Header/Header';
 import SearchResults from './Components/SearchResults/SearchResults';
 import Filter from './Components/Filter/Filter';
-import { Route } from 'react-router';
+import Recipe from './Components/Recipe/Recipe';
 
 const app_id = process.env.REACT_APP_EDAMAN_APP_ID;
 const api_key = process.env.REACT_APP_EDAMAN_API_KEY;
@@ -26,9 +24,20 @@ const initialForm = {
   },
 };
 
+const randomRecipes = `https://api.edamam.com/api/recipes/v2?type=public&q=garlic&app_id=${app_id}&app_key=${api_key}&random=true`;
+console.log(randomRecipes);
+
 function App() {
-  const [recipes, setRecipes] = useState(response);
+  const [recipes, setRecipes] = useState(null);
+  const [recipe, setRecipe] = useState(null);
   const [formState, setFormState] = useState(initialForm);
+
+  useEffect(() => {
+    fetch(randomRecipes)
+      .then(res => res.json())
+      .then(data => setRecipes(data))
+      .catch(err => console.error(err));
+  }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -68,8 +77,6 @@ function App() {
         setRecipes(data);
       })
       .catch(err => console.error(err));
-
-    // console.log(url);
   };
 
   const handleChange = ({ target }) => {
@@ -111,6 +118,11 @@ function App() {
     }
   };
 
+  const handleClick = selectedRecipe => {
+    setRecipe(selectedRecipe);
+    console.log(recipe);
+  };
+
   function updateCheckbox(target) {
     if (target.checked) {
       setFormState(state => ({
@@ -144,22 +156,20 @@ function App() {
   }
 
   return (
-    <div>
+    <DataContext.Provider
+      value={{
+        recipes,
+        recipe,
+        handleSubmit,
+        handleChange,
+        handleClick,
+      }}
+    >
       <Header />
-      <DataContext.Provider
-        value={{
-          recipes,
-          setRecipes,
-          formState,
-          setFormState,
-          handleSubmit,
-          handleChange,
-        }}
-      >
-        <Filter />
-        <SearchResults />
-      </DataContext.Provider>
-    </div>
+      <Filter />
+      <Route exact path='/' component={SearchResults} />
+      <Route path='/recipe/:recipe' render={() => <Recipe />} />
+    </DataContext.Provider>
   );
 }
 

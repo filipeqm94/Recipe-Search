@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 export default function Nav() {
   return (
     <nav>
-      <Link to='/'>Recipe Searcher</Link>
+      <Link to='/'>
+        <h1>Recipe Search</h1>
+      </Link>
     </nav>
   );
 }

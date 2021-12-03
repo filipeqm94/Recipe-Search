@@ -1,14 +1,27 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { DataContext } from '../../DataContext';
 
 export default function SearchResults() {
-  const { recipes } = useContext(DataContext);
+  const { recipes, handleClick } = useContext(DataContext);
+
+  if (!recipes) {
+    return <h1>Loading</h1>;
+  }
+
   return (
     <div>
       {recipes.hits.map(({ recipe }, index) => {
         return (
-          <div key={index}>
-            <img src={recipe.images.SMALL.url} alt={recipe.label} />
+          <Link
+            to={`/recipe/${recipe.label.toLowerCase()}`}
+            onClick={() => handleClick(recipe)}
+            key={index}
+          >
+            <img
+              src={recipe.images.SMALL.url ? recipe.images.SMALL.url : null}
+              alt={recipe.label}
+            />
             <h1>{recipe.label} </h1>
             {recipe.totalTime ? (
               <small>Preparation Time: {recipe.totalTime} minutes</small>
@@ -19,13 +32,7 @@ export default function SearchResults() {
                 <li key={index}>{ingredient}</li>
               ))}
             </ul>
-            <h3>
-              Instrctions:{' '}
-              <a href={recipe.url} target='_blank' rel='noreferrer'>
-                {recipe.source}
-              </a>
-            </h3>
-          </div>
+          </Link>
         );
       })}
     </div>
