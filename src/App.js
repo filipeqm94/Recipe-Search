@@ -7,23 +7,22 @@ import { response } from './response';
 import Header from './Components/Header/Header';
 import SearchResults from './Components/SearchResults/SearchResults';
 import Filter from './Components/Filter/Filter';
+import { Route } from 'react-router';
 
 const app_id = process.env.REACT_APP_EDAMAN_APP_ID;
 const api_key = process.env.REACT_APP_EDAMAN_API_KEY;
-
-console.log(api_key, app_id);
 
 const initialForm = {
   ingredients: '',
   diet: [],
   health: [],
   calories: {
-    calMin: 0,
-    calMax: 0,
+    min: 0,
+    max: 0,
   },
   time: {
-    timeMin: 0,
-    timeMax: 0,
+    min: 0,
+    max: 0,
   },
 };
 
@@ -40,12 +39,25 @@ function App() {
       if (key === 'diet' || key === 'health') {
         if (formState[key].length) {
           formState[key].forEach(item => {
-            const newUrl = url + `&${key}=${item}`;
-            url = newUrl;
+            const urlQuery = url + `&${key}=${item}`;
+            url = urlQuery;
           });
         }
       } else if (key === 'calories' || key === 'time') {
-        return null;
+        let min = formState[key].min;
+        let max = formState[key].max;
+
+        if (min === 0) {
+          const urlQuery = url + `&${key}=${max}`;
+          url = urlQuery;
+        } else if (max === 0) {
+          const urlQuery = url + `&${key}=${min}%2B`;
+          url = urlQuery;
+        } else {
+          const urlQuery =
+            url + `&${key}=${Math.min(min, max)}-${Math.max(min, max)}`;
+          url = urlQuery;
+        }
       }
       return null;
     });
@@ -56,6 +68,8 @@ function App() {
         setRecipes(data);
       })
       .catch(err => console.error(err));
+
+    // console.log(url);
   };
 
   const handleChange = ({ target }) => {
@@ -123,14 +137,14 @@ function App() {
       ...state,
       [target.name]: {
         ...state[target.name],
-        [target.id]: target.value,
+        [target.id.includes('Min') ? 'min' : 'max']:
+          +target.value >= 0 ? +target.value : 0,
       },
     }));
   }
 
   return (
     <div>
-      {JSON.stringify(formState, null, 2)}
       <Header />
       <DataContext.Provider
         value={{
