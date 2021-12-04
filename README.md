@@ -6,8 +6,10 @@ Second project on Software Engineer Immersive cohort at General Assembly.
 
 Display mastery on usage of API (Application Programming Interface) calls in order to display data to the user.
 
-### Technologies
+### Dependencies
 
 - React
 - Boostrap
 - SASS
+- React Router DOM
+- React Icons
