@@ -5,7 +5,7 @@ import { FiMail } from 'react-icons/fi';
 
 export default function Footer() {
   return (
-    <footer className='text-center fixed-bottom p-1'>
+    <footer className='text-center fixed-bottom pt-3'>
       <small className='d-block'>&copy; Filipe Marques, 2021</small>
       <a
         href='https://www.linkedin.com/in/filipe-marques-518bb61ba/'
