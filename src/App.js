@@ -180,10 +180,12 @@ function App() {
       >
         <Header />
         <Filter />
-        <Route exact path='/' component={SearchResults} />
-        <Route path='/recipe/:recipe' render={() => <Recipe />} />
+        <main>
+          <Route exact path='/' component={SearchResults} />
+          <Route path='/recipe/:recipe' render={() => <Recipe />} />
+        </main>
       </DataContext.Provider>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }
