@@ -6,6 +6,7 @@ import Header from './Components/Header/Header';
 import SearchResults from './Components/SearchResults/SearchResults';
 import Filter from './Components/Filter/Filter';
 import Recipe from './Components/Recipe/Recipe';
+import Footer from './Components/Footer/Footer';
 
 const app_id = process.env.REACT_APP_EDAMAN_APP_ID;
 const api_key = process.env.REACT_APP_EDAMAN_API_KEY;
@@ -29,6 +30,7 @@ const randomRecipes = `https://api.edamam.com/api/recipes/v2?type=public&q=garli
 function App() {
   const [recipes, setRecipes] = useState(null);
   const [recipe, setRecipe] = useState(null);
+  const [recipeUrl, setRecipeUrl] = useState('');
   const [formState, setFormState] = useState(initialForm);
 
   useEffect(() => {
@@ -37,6 +39,13 @@ function App() {
       .then(data => setRecipes(data))
       .catch(err => console.error(err));
   }, []);
+
+  useEffect(() => {
+    fetch(recipeUrl)
+      .then(res => res.json())
+      .then(data => setRecipe(data))
+      .catch(err => console.error(err));
+  }, [recipeUrl]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -54,6 +63,10 @@ function App() {
       } else if (key === 'calories' || key === 'time') {
         let min = formState[key].min;
         let max = formState[key].max;
+
+        if (!min && !max) {
+          return null;
+        }
 
         if (min === 0) {
           const urlQuery = url + `&${key}=${max}`;
@@ -118,8 +131,8 @@ function App() {
     }
   };
 
-  const handleClick = selectedRecipe => {
-    setRecipe(selectedRecipe);
+  const handleClick = recipeLink => {
+    setRecipeUrl(recipeLink);
   };
 
   function updateCheckbox(target) {
@@ -155,20 +168,23 @@ function App() {
   }
 
   return (
-    <DataContext.Provider
-      value={{
-        recipes,
-        recipe,
-        handleSubmit,
-        handleChange,
-        handleClick,
-      }}
-    >
-      <Header />
-      <Filter />
-      <Route exact path='/' component={SearchResults} />
-      <Route path='/recipe/:recipe' render={() => <Recipe />} />
-    </DataContext.Provider>
+    <>
+      <DataContext.Provider
+        value={{
+          recipes,
+          recipe,
+          handleSubmit,
+          handleChange,
+          handleClick,
+        }}
+      >
+        <Header />
+        <Filter />
+        <Route exact path='/' component={SearchResults} />
+        <Route path='/recipe/:recipe' render={() => <Recipe />} />
+      </DataContext.Provider>
+      <Footer></Footer>
+    </>
   );
 }
 
