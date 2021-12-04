@@ -11,30 +11,41 @@ export default function SearchResults() {
 
   return (
     <div>
-      {recipes.hits.map(({ recipe }, index) => {
-        return (
-          <Link
-            to={`/recipe/${recipe.label.toLowerCase()}`}
-            onClick={() => handleClick(recipe)}
-            key={index}
-          >
-            <img
-              src={recipe.images.SMALL.url ? recipe.images.SMALL.url : null}
-              alt={recipe.label}
-            />
-            <h1>{recipe.label} </h1>
-            {recipe.totalTime ? (
-              <small>Preparation Time: {recipe.totalTime} minutes</small>
-            ) : null}
-
-            <ul>
-              {recipe.ingredientLines.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-          </Link>
-        );
-      })}
+      {recipes.hits
+        .sort((a, b) => a.recipe.calories - b.recipe.calories)
+        .map(({ recipe }, index) => {
+          return (
+            <Link
+              to={`/recipe/${recipe.label.toLowerCase()}`}
+              onClick={() => handleClick(recipe)}
+              key={index}
+            >
+              <h1>{recipe.label} </h1>
+              <img
+                src={
+                  recipe.images.SMALL
+                    ? recipe.images.SMALL.url
+                    : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOFRNqBzy3DZlfFl70XxQG1kZiaCPfntvY1w&usqp=CAU'
+                }
+                alt={recipe.label}
+              />
+              {recipe.totalTime ? (
+                <p>
+                  <small>Average prep time: {recipe.totalTime} minutes</small>
+                </p>
+              ) : null}
+              <small style={{ display: 'block' }}>
+                Calories: {recipe.calories.toFixed(2)}
+              </small>
+              <h3>Ingredients:</h3>
+              <ul>
+                {recipe.ingredientLines.map((ingredient, index) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </Link>
+          );
+        })}
     </div>
   );
 }

@@ -25,7 +25,6 @@ const initialForm = {
 };
 
 const randomRecipes = `https://api.edamam.com/api/recipes/v2?type=public&q=garlic&app_id=${app_id}&app_key=${api_key}&random=true`;
-console.log(randomRecipes);
 
 function App() {
   const [recipes, setRecipes] = useState(null);
@@ -75,6 +74,7 @@ function App() {
       .then(res => res.json())
       .then(data => {
         setRecipes(data);
+        console.log(url);
       })
       .catch(err => console.error(err));
   };
@@ -120,7 +120,6 @@ function App() {
 
   const handleClick = selectedRecipe => {
     setRecipe(selectedRecipe);
-    console.log(recipe);
   };
 
   function updateCheckbox(target) {
