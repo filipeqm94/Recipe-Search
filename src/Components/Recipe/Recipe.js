@@ -3,6 +3,8 @@ import { DataContext } from '../../DataContext';
 
 import { Card, Container } from 'react-bootstrap';
 
+import noImage from '../../assets/no-image.jpeg';
+
 export default function Recipe() {
   const { recipe } = useContext(DataContext);
 
@@ -18,12 +20,12 @@ export default function Recipe() {
         <Card.Img
           className='rounded mx-auto d-block'
           src={
-            currentRecipe.images.SMALL
+            currentRecipe.images.IsThere
               ? currentRecipe.images.SMALL.url
-              : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOFRNqBzy3DZlfFl70XxQG1kZiaCPfntvY1w&usqp=CAU'
+              : noImage
           }
           alt={currentRecipe.label}
-          style={{ width: 200, height: 200 }}
+          style={{ width: 300, height: 'auto' }}
         />
         {currentRecipe.totalTime ? (
           <small className='d-block'>

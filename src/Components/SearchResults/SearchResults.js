@@ -5,6 +5,8 @@ import { DataContext } from '../../DataContext';
 //style
 import { Card, Container, Row, Col } from 'react-bootstrap';
 
+import noImage from '../../assets/no-image.jpeg';
+
 export default function SearchResults() {
   const { recipes, handleClick } = useContext(DataContext);
 
@@ -26,12 +28,10 @@ export default function SearchResults() {
                   <Card.Title>{recipe.label}</Card.Title>
                   <Card.Img
                     src={
-                      recipe.images.SMALL
-                        ? recipe.images.SMALL.url
-                        : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOFRNqBzy3DZlfFl70XxQG1kZiaCPfntvY1w&usqp=CAU'
+                      recipe.images.SMALL ? recipe.images.SMALL.url : noImage
                     }
                     alt={recipe.label}
-                    style={{ width: 200, height: 200 }}
+                    style={{ width: 200, height: 'auto' }}
                   />
                   {recipe.totalTime ? (
                     <small className='d-block'>
