@@ -4,8 +4,42 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: antiquewhite;
+
+  a {
+    text-decoration: none;
+    color: #020;
+
+    &:hover {
+      color: #050;
+    }
+
+    li {
+      text-align: left;
+      color: black;
+    }
+  }
+}
+
 header {
   height: 10vh;
 
   background-color: yellow;
+}
+
+footer {
+  background-color: bisque;
+  a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+  }
+  a + a {
+    margin-left: 15px;
+  }
+}
+
+.colHeight {
+  height: 500px;
 }
