@@ -85,10 +85,7 @@ function App() {
 
     fetch(url)
       .then(res => res.json())
-      .then(data => {
-        setRecipes(data);
-        console.log(url);
-      })
+      .then(data => setRecipes(data))
       .catch(err => console.error(err));
   };
 
