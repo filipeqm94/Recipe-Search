@@ -20,7 +20,7 @@ export default function Recipe() {
         <Card.Img
           className='rounded mx-auto d-block'
           src={
-            currentRecipe.images.IsThere
+            currentRecipe.images.SMALL
               ? currentRecipe.images.SMALL.url
               : noImage
           }
