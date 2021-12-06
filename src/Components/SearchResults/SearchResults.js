@@ -16,7 +16,7 @@ export default function SearchResults() {
 
   return (
     <Container className='mt-3'>
-      <Row className='mb-5'>
+      <Row>
         {recipes.hits.map(({ recipe, _links }, index) => {
           return (
             <Col className='colHeight mb-5' key={index}>
