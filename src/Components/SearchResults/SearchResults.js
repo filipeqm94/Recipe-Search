@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { DataContext } from '../../DataContext';
 
 //style
-import { Card, Container, Row, Col } from 'react-bootstrap';
+import { Card, Container, Row, Col, Alert } from 'react-bootstrap';
 
 import noImage from '../../assets/no-image.jpeg';
 
@@ -12,6 +12,15 @@ export default function SearchResults() {
 
   if (!recipes) {
     return <h1>Loading</h1>;
+  } else if (recipes.hits.length === 0) {
+    return (
+      <div className='d-flex justify-content-center'>
+        <Alert variant='danger'>
+          No recipes found when searching for the parameters entered. Please try
+          something else.
+        </Alert>
+      </div>
+    );
   }
 
   return (
@@ -20,7 +29,10 @@ export default function SearchResults() {
         {recipes.hits.map(({ recipe, _links }, index) => {
           return (
             <Col className='colHeight mb-5' key={index}>
-              <Card className='h-100 overflow-auto text-center p-3'>
+              <Card
+                className='h-100 overflow-auto text-center p-3'
+                style={{ minWidth: 250 }}
+              >
                 <Link
                   to={`/recipe/${recipe.label.toLowerCase()}`}
                   onClick={() => handleClick(_links.self.href)}
