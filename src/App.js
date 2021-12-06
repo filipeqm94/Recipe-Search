@@ -179,6 +179,14 @@ function App() {
           <Route exact path='/' component={SearchResults} />
           <Route path='/recipe/:recipe' render={() => <Recipe />} />
         </main>
+        <div
+          style={{
+            display: 'block',
+            padding: '20px',
+            height: '60px',
+            width: '100%',
+          }}
+        ></div>
       </DataContext.Provider>
       <Footer />
     </>
