@@ -107,7 +107,11 @@ function App() {
     //classic api call
     fetch(url)
       .then(res => res.json())
-      .then(data => setRecipes(data))
+      .then(data => {
+        setRecipes(data);
+        //reset form state after successful API response
+        setFormState(initialForm);
+      })
       .catch(err => console.error(err));
   };
 
