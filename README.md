@@ -28,11 +28,11 @@ In case of a successful response from the API, the user should be presented with
 
 ![New API response](Documentation-Pic4.png)
 
+> At the time of the documentation there were some difficulties with the API where it was not returning all the pictures
+
 When the user clicks on one of the recipe cards of a successful API response, they are presented with a page with a list of all ingredient and a link they can click to follow the instructions of preparation.
 
 ![Recipe Page](Documentation-Pic6.png)
-
-> At the time of the documentation there were some difficulties with the API where it was not returning all the pictures
 
 In case the query parameters returns comes back empty, meaning no results were found, the user is presented with an alert message.
 
