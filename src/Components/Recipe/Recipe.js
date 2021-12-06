@@ -18,14 +18,13 @@ export default function Recipe() {
       <Card className='h-100 overflow-auto text-center p-3'>
         <Card.Title>{currentRecipe.label}</Card.Title>
         <Card.Img
-          className='rounded mx-auto d-block'
+          className='rounded mx-auto d-block recipeImage'
           src={
             currentRecipe.images.SMALL
               ? currentRecipe.images.SMALL.url
               : noImage
           }
           alt={currentRecipe.label}
-          style={{ width: 300, height: 'auto' }}
         />
         {currentRecipe.totalTime ? (
           <small className='d-block'>
