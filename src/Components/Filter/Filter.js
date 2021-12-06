@@ -199,7 +199,7 @@ export default function Filter() {
         </Row>
 
         <div className='d-flex justify-content-center'>
-          <Button type='submit' className='btn-primary mt-3 w-25'>
+          <Button type='submit' className='btn-primary mt-3'>
             Search
           </Button>
         </div>
