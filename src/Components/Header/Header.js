@@ -7,7 +7,7 @@ import Filter from '../Filter/Filter';
 export default function Header() {
   return (
     <Navbar bg='warning' expand={false}>
-      <Container fluid>
+      <Container>
         <Link to='/'>
           <h1>Recipe Search</h1>
         </Link>
