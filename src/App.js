@@ -4,7 +4,6 @@ import { Route } from 'react-router';
 
 import Header from './Components/Header/Header';
 import SearchResults from './Components/SearchResults/SearchResults';
-import Filter from './Components/Filter/Filter';
 import Recipe from './Components/Recipe/Recipe';
 import Footer from './Components/Footer/Footer';
 
@@ -176,7 +175,6 @@ function App() {
         }}
       >
         <Header />
-        <Filter />
         <main>
           <Route exact path='/' component={SearchResults} />
           <Route path='/recipe/:recipe' render={() => <Recipe />} />
