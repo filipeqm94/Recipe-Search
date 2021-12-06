@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { DataContext } from '../../DataContext';
+
+//styles
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 
 export default function Filter() {
   const { handleSubmit, handleChange } = useContext(DataContext);
   return (
+    //add boostrap container component and form component inside
     <Container>
       <Form onSubmit={handleSubmit} className='bg-warning text-dark w-100 p-2'>
         <Row>

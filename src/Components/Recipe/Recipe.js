@@ -8,6 +8,7 @@ import noImage from '../../assets/no-image.jpeg';
 export default function Recipe() {
   const { recipe } = useContext(DataContext);
 
+  //display loading message while recipe is being retrieve by the api call
   if (!recipe) {
     return (
       <div className='d-flex justify-content-center'>

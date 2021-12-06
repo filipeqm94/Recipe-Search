@@ -10,6 +10,7 @@ import noImage from '../../assets/no-image.jpeg';
 export default function SearchResults() {
   const { recipes, handleClick } = useContext(DataContext);
 
+  //display loading message while api is being retrieved
   if (!recipes) {
     return (
       <div className='d-flex justify-content-center'>
@@ -17,6 +18,7 @@ export default function SearchResults() {
       </div>
     );
   } else if (recipes.hits.length === 0) {
+    //show invalid input message if response comes back enpty
     return (
       <div className='d-flex justify-content-center'>
         <Alert variant='danger'>

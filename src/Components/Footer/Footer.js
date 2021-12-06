@@ -1,5 +1,6 @@
 import React from 'react';
 
+//icons
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { FiMail } from 'react-icons/fi';
 
@@ -9,6 +10,7 @@ export default function Footer() {
       <small className='d-block'>
         &copy; Filipe Marques, 2021 -{' '}
         <span id='edamam-badge' data-color='transparent'></span>
+        {/* shout out to edaman for the api! */}
       </small>
       <a
         href='https://www.linkedin.com/in/filipe-marques-518bb61ba/'
