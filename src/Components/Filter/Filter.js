@@ -100,7 +100,7 @@ export default function Filter() {
                 id='nut-free'
                 label='Nut Free'
                 name='health'
-                value='nut-free'
+                value='tree-nut-free'
                 onChange={handleChange}
               />
               <Form.Check
