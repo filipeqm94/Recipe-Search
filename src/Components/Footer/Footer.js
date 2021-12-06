@@ -5,7 +5,7 @@ import { FiMail } from 'react-icons/fi';
 
 export default function Footer() {
   return (
-    <footer className='text-center fixed-bottom'>
+    <footer className='text-center fixed-bottom p-1'>
       <small className='d-block'>
         &copy; Filipe Marques, 2021 -{' '}
         <span id='edamam-badge' data-color='transparent'></span>
