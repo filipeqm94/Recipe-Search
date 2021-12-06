@@ -9,7 +9,7 @@ export default function Header() {
     <Navbar bg='warning' expand={false}>
       <Container>
         <Link to='/'>
-          <h1>Recipe Search</h1>
+          <h1>Recipe Finder</h1>
         </Link>
         <Navbar.Toggle aria-controls='offcanvasNavbar' />
         <Navbar.Offcanvas
