@@ -17,18 +17,14 @@ body {
 }
 
 header {
-  height: 10vh;
-
-  background-color: yellow;
+  max-height: 10vh;
 }
 
 main {
-  margin: 3vh 0;
+  padding: 3vh 0;
 }
 
 footer {
-  height: 10vh;
-
   background-color: bisque;
   a {
     font-size: 1.5rem;
@@ -42,4 +38,14 @@ footer {
 
 .colHeight {
   height: 500px;
+}
+
+.recipeImage {
+  width: 300px;
+}
+
+@media only screen and (max-width: 768px) {
+  .recipeImage {
+    width: 100%;
+  }
 }
