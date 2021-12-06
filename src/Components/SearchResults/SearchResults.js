@@ -11,7 +11,11 @@ export default function SearchResults() {
   const { recipes, handleClick } = useContext(DataContext);
 
   if (!recipes) {
-    return <h1>Loading</h1>;
+    return (
+      <div className='d-flex justify-content-center'>
+        <h1>Loading...</h1>
+      </div>
+    );
   } else if (recipes.hits.length === 0) {
     return (
       <div className='d-flex justify-content-center'>
